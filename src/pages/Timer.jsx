@@ -54,7 +54,7 @@ export default function Timer() {
             setHour(0);
             setMinute(0);
             setSecond(0);
-        }, 1000);
+        }, 500);
         
     }
 

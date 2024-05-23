@@ -16,7 +16,7 @@ export default function Candidates() {
         if (value == '') {
             setFilteredCandidates(candidates);
         } else {
-            const searchedCandidates = candidates.filter(candidates => candidates.email.includes(value))
+            const searchedCandidates = candidates.filter(candidates => candidates.email.startsWith(value))
             setFilteredCandidates(searchedCandidates);
         }
     }
@@ -26,7 +26,7 @@ export default function Candidates() {
         <div className="d-flex flex-column mt-4 align-items-center justify-content-center">
             <div className="d-flex gap-2 align-self-end align-items-center">
                 <label>Search:</label>
-                <input type="text" name="search" onChange={handleSearch}/>
+                <input type="text" name="search" className="form-control" onChange={handleSearch}/>
             </div>
             <ConceptualTable data={filteredCandidates} theadColumns={['Name', 'Email', 'Skills']} tbodyKeys={['name', 'email', 'skills']} />
         </div>

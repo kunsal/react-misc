@@ -1,27 +1,59 @@
-import { NavLink } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { Link, NavLink } from "react-router-dom";
 
 export default function Navbar() {
-    return (
-        <nav className="navbar navbar-expand-lg bg-primary ">
-            <div className="container">
-                <a className="navbar-brand text-light" href="#">Navbar</a>
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li className="nav-item">
-                        <NavLink to="/" className="nav-link">Home</NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink to="/timer" className="nav-link">Timer</NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink to="/candidates" className="nav-link">Candidates</NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink to="/counter" className="nav-link">Counter with Redux</NavLink>
-                    </li>
-                </ul>
-                </div>
-            </div>
-        </nav>
-    );
+  const [toggleMenu, setToggleMenu] = useState(false);
+  const navRef = useRef(null);
+  const [windowSize, setWindowSize] = useState({
+      width: window.innerWidth
+  });
+
+  useEffect(() => {
+      const handleResize = () => {
+          setWindowSize({
+              width: window.innerWidth,
+          });
+      };
+
+      window.addEventListener('resize', handleResize);
+
+      return () => {
+          window.removeEventListener('resize', handleResize);
+      };
+  }, []);
+
+  useEffect(() => {
+      if (windowSize.width > 990) {
+          setToggleMenu(false);
+      }
+  }, [windowSize]);
+
+  return (
+      <nav className="navbar navbar-expand-lg bg-primary" ref={navRef}>
+          <div className="container">
+              <Link to="/" className="navbar-brand text-light">
+                  Navbar {windowSize.width}
+              </Link>
+              <button className="navbar-toggler" type="button" data-bs-toggle="collapse" onClick={() => setToggleMenu(!toggleMenu)}>
+                  <span className="navbar-toggler-icon"></span>
+              </button>
+              <div className={toggleMenu ? 'navbar-collapse' : 'collapse navbar-collapse'}>
+              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li className="nav-item">
+                      <NavLink to="/" className="nav-link">Home</NavLink>
+                  </li>
+                  <li className="nav-item">
+                      <NavLink to="/timer" className="nav-link">Timer</NavLink>
+                  </li>
+                  <li className="nav-item">
+                      <NavLink to="/candidates" className="nav-link">Candidates</NavLink>
+                  </li>
+                  <li className="nav-item">
+                      <NavLink to="/counter" className="nav-link">Counter with Redux</NavLink>
+                  </li>
+              </ul>
+              </div>
+          </div>
+      </nav>
+  );
 }

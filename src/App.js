@@ -10,12 +10,17 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <div className='container'>
-      <Routes>
-        <Route path='/' element={<Home />}/>
-        <Route path='/timer' element={<Timer />} />
-        <Route path='/candidates' element={<Candidates />} />
-        <Route path='/counter' element={<Counter />} />
-      </Routes>
+        <div className='row'>
+          <div className='md-6 md-offset-3'>
+            <Routes>
+              <Route path='/' element={<Home />}/>
+              <Route path='/timer' element={<Timer />} />
+              <Route path='/candidates' element={<Candidates />} />
+              <Route path='/counter' element={<Counter />} />
+            </Routes>
+          </div>
+        </div>
+      
       </div>
     </BrowserRouter>
   );

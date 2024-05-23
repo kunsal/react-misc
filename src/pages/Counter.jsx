@@ -28,7 +28,7 @@ export default function() {
                 onClick={() => dispatch(incrementByValue(inputValue))}>Increment By Value
             </button>
         </div>
-        <input type="number" value={inputValue} onChange={(e) => {
+        <input type="number" value={inputValue} className="w-25 form-control align-self-center" onChange={(e) => {
             setInputValue(() => e.target.value);
         }} />
     </div>
