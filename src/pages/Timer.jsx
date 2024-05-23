@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 
-export default function Timer() {
+export default function Timer({stoppageTime = 2}) {
     let [hour, setHour] = useState(0);
     let [minute, setMinute] = useState(0);
     let [second, setSecond] = useState(0);
     let [timerStarted, setTimerStarted] = useState(false);
     let [timeUp, setTimeUp] = useState(false);
-    const stoppageTime = 2;
 
     useEffect(() => {
         if (hour < 10) setHour(`0${parseInt(hour)}`);

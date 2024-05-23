@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Timer from './pages/Timer';
 import Candidates from './pages/Candidates';
 import Counter from './pages/Counter';
+import Question from './pages/Question';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
               <Route path='/timer' element={<Timer />} />
               <Route path='/candidates' element={<Candidates />} />
               <Route path='/counter' element={<Counter />} />
+              <Route path='/create-question' element={<Question />} />
             </Routes>
           </div>
         </div>
