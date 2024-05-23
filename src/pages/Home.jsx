@@ -12,8 +12,8 @@ const Home = () => {
     const skillRef = useRef(null);
     const emailRef = useRef(null);
     const [submitDisabled, setSubmitDisabled] = useState(true);
-    const [candidates, setCandidates] = useState(null);
-    const reduxCandidates = useSelector(state => state.candidates);
+    // const [candidates, setCandidates] = useState(null);
+    const candidates = useSelector(state => state.candidates.data);
     const dispatch = useDispatch();
 
     const addSkill = (e) => {
@@ -36,12 +36,13 @@ const Home = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const savedCandidates = JSON.parse(localStorage.getItem('candidates')) || [];
+        // const savedCandidates = JSON.parse(localStorage.getItem('candidates')) || [];
         const {name, email, skills} = formData;
-        const candidateExists = savedCandidates.filter(c => c.email === email);
+        const candidateExists = candidates.filter(c => c.email === email);
         if (candidateExists.length == 0) {
             const candidate = {name, email, skills}
-            setCandidates([...savedCandidates, candidate]);
+            //setCandidates([...savedCandidates, candidate]);
+            dispatch(add(candidate));
             emailRef.current.value = '';
             setFormData({
                 name: '',
@@ -66,19 +67,20 @@ const Home = () => {
 
     // Run when the page reloads
     useEffect(() => {
-        console.log('Expected to run at component mount');
-        const savedCandidates = JSON.parse(localStorage.getItem('candidates')) || [];
-        console.log(savedCandidates);
-        setCandidates(savedCandidates);
-        localStorage.setItem('candidates', JSON.stringify(savedCandidates));
+        console.log(candidates);
+        // console.log('Expected to run at component mount');
+        // const savedCandidates = JSON.parse(localStorage.getItem('candidates')) || [];
+        // console.log(savedCandidates);
+        // setCandidates(savedCandidates);
+        // localStorage.setItem('candidates', JSON.stringify(savedCandidates));
     }, []);
 
-    useEffect(() => {
-        if (candidates !== null) {
-            dispatch(add(candidates));
-            // localStorage.setItem('candidates', JSON.stringify(candidates));
-        }
-    }, [candidates]);
+    // useEffect(() => {
+    //     if (candidates !== null) {
+    //         dispatch(add(candidates));
+    //         // localStorage.setItem('candidates', JSON.stringify(candidates));
+    //     }
+    // }, [candidates]);
 
     return (
         <div className="d-flex flex-column mt-4 align-items-center justify-content-center">
