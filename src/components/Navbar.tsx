@@ -1,10 +1,14 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 
+type WindowSizeObject = {
+    width: number
+}
+
 export default function Navbar() {
-  const [toggleMenu, setToggleMenu] = useState(false);
+  const [toggleMenu, setToggleMenu] = useState<boolean>(false);
   const navRef = useRef(null);
-  const [windowSize, setWindowSize] = useState({
+  const [windowSize, setWindowSize] = useState<WindowSizeObject>({
       width: window.innerWidth
   });
 
@@ -44,6 +48,9 @@ export default function Navbar() {
                   </li>
                   <li className="nav-item">
                       <NavLink to="/create-question" className="nav-link">Create Question</NavLink>
+                  </li>
+                  <li className="nav-item">
+                      <NavLink to="/exam" className="nav-link">Exam</NavLink>
                   </li>
                   <li className="nav-item">
                       <NavLink to="/timer" className="nav-link">Timer</NavLink>

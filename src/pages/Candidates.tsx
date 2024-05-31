@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ConceptualTable from "../components/ConceptualTable";
 import { useSelector } from "react-redux";
+import { Candidate, Candidates as CandidatesType } from "../types/candidate-types";
 
 export default function Candidates() {
-    const [filteredCandidates, setFilteredCandidates] = useState([]);
-    const candidates = useSelector(state => state.candidates.data);
-
+    const [filteredCandidates, setFilteredCandidates] = useState<Candidate[]>([]);
+    const candidates = useSelector((state: CandidatesType) => state.candidates.data);
 
     useEffect(() => {
         setFilteredCandidates(candidates); // useful for searching
     }, []);
 
-    const handleSearch = (e) => {
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         if (value == '') {
             setFilteredCandidates(candidates);

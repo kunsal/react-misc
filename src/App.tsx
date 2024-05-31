@@ -1,11 +1,14 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Home from './pages/Home';
-import Navbar from './components/Navbar';
+
 import Timer from './pages/Timer';
 import Candidates from './pages/Candidates';
 import Counter from './pages/Counter';
 import Question from './pages/Question';
-
+import Exam from './pages/Exam';
+import Navbar from './components/Navbar';
+import Login from './pages/Login';
+ 
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +22,8 @@ function App() {
               <Route path='/candidates' element={<Candidates />} />
               <Route path='/counter' element={<Counter />} />
               <Route path='/create-question' element={<Question />} />
+              <Route path='/exam' element={<Exam />} />
+              <Route path='/login' element={<Login />} />
             </Routes>
           </div>
         </div>

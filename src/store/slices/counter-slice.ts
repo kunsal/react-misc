@@ -1,16 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+type CounterStateType = {
+    value: number
+}
+
+const initialState: CounterStateType = {value: 0};
+
 const counterSlice = createSlice({
     name: 'counter',
-    initialState: {
-        value: 0
-    },
+    initialState,
     reducers: {
         increment: (state) => {
             state.value++;
         },
         decrement: state => {
-            if (state.value == 0) {
+            if (state.value === 0) {
                 state.value = 0;
             } else {
                 state.value--

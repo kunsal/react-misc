@@ -1,0 +1,25 @@
+import { fireEvent, getByText, render, screen } from '@testing-library/react';
+import App from '../App';
+import Greet from '../components/Greet';
+
+describe(Greet, () => {
+  it ('displays greet has initial name', () => {
+    render(<Greet />);
+    const name = screen.getByTestId("name").textContent;
+    expect(name).toBe('John');
+  })
+  
+  it ('displays the name passed as props', () => {
+    render(<Greet name='Olakunle'/>);
+    const name = screen.getByTestId("name").textContent;
+    expect(name).toBe('Olakunle');
+  })
+
+  it ('displays the Ajayi when change button is preseed', () => {
+    render(<Greet name='Olakunle'/>);
+    const changeNameButton = screen.getByRole('button', {name: 'Change Name'});
+    fireEvent.click(changeNameButton);
+    const name = screen.getByTestId("name").textContent;
+    expect(name).toBe('Ajayi');
+  })
+});

@@ -1,0 +1,39 @@
+import { fireEvent, render, screen } from "@testing-library/react"
+import Timer from "../pages/Timer"
+
+describe('Timer test', () => {
+    it('should have title as Timer', () => {
+        render(<Timer />)
+        const title = screen.getByRole('heading').textContent;
+        expect(title).toBe('Stopwatch Timer')
+    });
+
+    it('should have default timer value as 00:00:00', () => {
+        render(<Timer />)
+        const timerDisplayValue = screen.getByLabelText('timer-display').textContent;
+        expect(timerDisplayValue).toBe('00:00:00');
+    })
+
+    it('should start timer when Start button is clicked', () => {
+        render(<Timer />)
+        const startTimerBtn = screen.getByRole('button', {name: 'Start'});
+        fireEvent.click(startTimerBtn);
+        expect(screen.getByLabelText('timer-display').textContent).toBe('00:00:01')
+    })
+
+    it('should reset timer when Reset button is clicked', () => {
+        render(<Timer />)
+        const resetTimerBtn = screen.getByRole('button', {name: 'Reset'});
+        fireEvent.click(resetTimerBtn);
+        expect(screen.getByLabelText('timer-display').textContent).toBe('00:00:00')
+    })
+
+    it('should pause timer when Pause button is clicked', () => {
+        render(<Timer />)
+        const pauseTimerBtn = screen.getByRole('button', {name: 'Pause'});
+        const timerDisplay = screen.getByLabelText('timer-display');
+        let currentTimerDisplay = timerDisplay.textContent = '00:00:05'
+        fireEvent.click(pauseTimerBtn);
+        expect(timerDisplay.textContent).toBe(currentTimerDisplay)
+    })
+})

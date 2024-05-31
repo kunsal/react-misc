@@ -1,7 +1,13 @@
-export default function ConceptualTable ({data, theadColumns, tbodyKeys}) {
+type ConceptualTableType = {
+    data: Record<string, any>,
+    theadColumns: string[],
+    tbodyKeys: string[]
+}
+
+export default function ConceptualTable ({data, theadColumns, tbodyKeys}: ConceptualTableType) {
     const conceptualTableClasses = ['table-success', 'table-info', 'table-warning', 'table-primary'];
 
-    const getTableClassIndex = (idx) => {
+    const getTableClassIndex = (idx: number) => {
         const classesLength = conceptualTableClasses.length;
         if (idx < classesLength) return idx; 
         while (idx >= classesLength) {
@@ -19,7 +25,7 @@ export default function ConceptualTable ({data, theadColumns, tbodyKeys}) {
             </thead>
             <tbody> 
             {data.length > 0 && 
-                data.map((dt, idx) => (
+                data.map((dt:any, idx:number) => (
                     <tr key={dt[idx]} className={conceptualTableClasses[getTableClassIndex(idx)]}>
                         {tbodyKeys.map(td => {
                             return typeof dt[td] !== 'object' ? 

@@ -1,29 +1,33 @@
 import { useEffect, useState } from "react";
 
-export default function Timer({stoppageTime = 2}) {
-    let [hour, setHour] = useState(0);
-    let [minute, setMinute] = useState(0);
-    let [second, setSecond] = useState(0);
-    let [timerStarted, setTimerStarted] = useState(false);
-    let [timeUp, setTimeUp] = useState(false);
+type TimerProps = {
+    stoppageTime?: number;
+}
+
+export default function Timer({stoppageTime = 2}: TimerProps) {
+    let [hour, setHour] = useState<number | string>(0);
+    let [minute, setMinute] = useState<number | string>(0);
+    let [second, setSecond] = useState<number | string>(0);
+    let [timerStarted, setTimerStarted] = useState<boolean>(false);
+    let [timeUp, setTimeUp] = useState<boolean>(false);
 
     useEffect(() => {
-        if (hour < 10) setHour(`0${parseInt(hour)}`);
-        if (minute < 10) setMinute(`0${parseInt(minute)}`);
-        if (second < 10) setSecond(`0${parseInt(second)}`);
+        if ((hour as number) < 10) setHour(`0${parseInt(hour as string)}`);
+        if ((minute as number) < 10) setMinute(`0${parseInt(minute as string)}`);
+        if ((second as number) < 10) setSecond(`0${parseInt(second as string)}`);
     }, [second]);
 
     useEffect(() => {
-        let theTimeout;
+        let theTimeout: ReturnType<typeof setTimeout>;
         if (timerStarted) {
             theTimeout = setTimeout(() => {
-            setSecond(parseInt(second) + 1);
+            setSecond(parseInt(second as string) + 1);
             if (second == 9) {
                 setSecond(0);
-                setMinute(parseInt(minute) + 1);
-                if (parseInt(minute) === 3 && parseInt(second) === 9) {
+                setMinute(parseInt(minute as string) + 1);
+                if (parseInt(minute as string) === 3 && parseInt((second as unknown) as string) === 9) {
                     setMinute(0);
-                    setHour(parseInt(hour) + 1)
+                    setHour(parseInt(hour as string) + 1)
                 }
             }
             }, 1000);
@@ -38,11 +42,11 @@ export default function Timer({stoppageTime = 2}) {
     }, [second, timerStarted]);
 
     useEffect(() => {
-        if (parseInt(hour) === stoppageTime) setTimeUp(true);
+        if (parseInt(hour as string) === stoppageTime) setTimeUp(true);
     }, [hour])
 
     const startTimer = () => {
-        setSecond(parseInt(second) + 1);
+        setSecond(parseInt(second as string) + 1);
         setTimerStarted(true);
         setTimeUp(false);
     }
@@ -67,7 +71,7 @@ export default function Timer({stoppageTime = 2}) {
     return (
         <div className="d-flex gap-4 flex-column justify-content-center align-items-center mt-4">
             <h1>Stopwatch Timer</h1>
-            <p className="fw-bold fs-1">
+            <p className="fw-bold fs-1" aria-label="timer-display">
                 {hour}:{minute}:{second}
             </p>
             <div className="d-flex gap-2">
